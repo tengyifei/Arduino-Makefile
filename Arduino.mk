@@ -1024,7 +1024,10 @@ endif
 CFLAGS        += $(CFLAGS_STD)
 CXXFLAGS      += -fno-exceptions $(CXXFLAGS_STD)
 ASFLAGS       += -x assembler-with-cpp
-LDFLAGS       += -$(MCU_FLAG_NAME)=$(MCU) -Wl,--gc-sections -O$(OPTIMIZATION_LEVEL)
+LDFLAGS       += -$(MCU_FLAG_NAME)=$(MCU) -O$(OPTIMIZATION_LEVEL)
+ifndef DONT_GC_SECTIONS
+    LDFLAGS   += -Wl,--gc-sections
+endif
 SIZEFLAGS     ?= --mcu=$(MCU) -C
 
 # for backwards compatibility, grab ARDUINO_PORT if the user has it set
