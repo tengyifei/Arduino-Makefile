@@ -1082,11 +1082,11 @@ get_isp_port = $(if $(wildcard $(ISP_PORT)),$(firstword $(wildcard $(ISP_PORT)))
 ifneq (,$(findstring AVR,$(shell $(SIZE) --help)))
     # We have a patched version of binutils that mentions AVR - pass the MCU
     # and the elf to get nice output.
-    avr_size = $(SIZE) $(SIZEFLAGS) --format=avr $(1)
+    avr_size = $(SIZE) $(SIZEFLAGS) --format=avr $(1) 1>&2
     $(call show_config_info,Size utility: AVR-aware for enhanced output,[AUTODETECTED])
 else
     # We have a plain-old binutils version - just give it the hex.
-    avr_size = $(SIZE) $(2)
+    avr_size = $(SIZE) $(2) 1>&2
     $(call show_config_info,Size utility: Basic (not AVR-aware),[AUTODETECTED])
 endif
 
